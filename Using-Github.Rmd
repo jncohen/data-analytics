@@ -1,6 +1,6 @@
 ---
 title: "Using GitHub with RStudio"
-author: "Joseph Cohen"
+author: "Joseph N. Cohen"
 date: "1/21/2021"
 output: 
   html_document:
