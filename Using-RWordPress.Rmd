@@ -1,16 +1,21 @@
 ---
-title: "Post to WordPress via R Markdown"
-output: 
-  html_document:
-    toc: true
+title: "Post to WordPress from RStudio"
+author: "Joseph Cohen"
+date: "1/21/2021"
+output: html_document
 ---
-
 
 ```{r, include=FALSE}
 rm(list=ls())
 gc()
-directory <- "E:/Dropbox/Teaching/Data Analytics in R"
+directory <- "E:/Dropbox/Teaching/Data-Analytics-Posts"
 setwd(directory)
+
+library(RWordPress)
+library(XMLRPC)
+library(knitr)
+library(reshape2)
+library(RCurl)
 
 ```
 
@@ -22,7 +27,7 @@ Blogs are a great communications tool.  This post documents a method for generat
 
 The ***[RWordPress](https://github.com/duncantl/RWordPress)*** package is being distributed through GitHub.  It can be installed using the **[install_github()](https://cran.r-project.org/web/packages/githubinstall/vignettes/githubinstall.html)** operation in the ***[devtools](https://cran.r-project.org/web/packages/devtools/index.html)*** package.  You also need to install Lang's ***XMLRPC*** package as well.
 
-```{r install packages, eval = F, echo = T}
+```{r, eval = F, echo = T}
 
 library(devtools)
 install_github("duncantl/RWordPress")
@@ -36,7 +41,7 @@ We need the following packages, in addition to ***RWordPress*** and ***XMLRPC***
 
 * ***knitr***, a suite of operations for generating reports
 
-```{r load packages, echo = T}
+```{r, echo = T}
 
 library(RWordPress)
 library(XMLRPC)
@@ -112,7 +117,7 @@ To post, you create an object called *postID*, which includes:
 * to set the post's category.  Use the slugs designated on your site. (option: categories)
 * to set the post's tags.  Use the slugs designated on your site. (option: tags)
 
-```{r, eval - F, echo = T}
+```{r, eval = F, echo = T}
 
 postID <- knit2wp(
         input = fileName, 
@@ -126,22 +131,6 @@ postID <- knit2wp(
 
 ```
 
-```{r, eval - T, include = F}
-
-postID <- knit2wp(
-        input = fileName, 
-        title = postTitle, 
-        publish = FALSE,
-        action = "newPost",
-        categories = c("data-analytics"),
-        tags = c("markdown"),
-        mt_excerpt = "Publish a Markdown report direct to your WordPress blog",
-        
-        #The following are custom tags for my own site
-        github_repository = "https://github.com/jncohen/data-analytics/blob/main/Using-RWordPress.Rmd"
-        )
-
-```
 
 ## Clean It Up on WordPress
 
@@ -166,7 +155,7 @@ postTitle = "Your Title"
 fileName = "Your-Markdown-File.Rmd"
 ```
 
-Then write the script until it is polished, and then you can post by entering this code.
+Then write the script until it is polished, and then you can post by running this code.  I recommend that you set eval = F, so that it doesn't run when you render the Markdown file into html.  Then, once the file runs, execute this code on its own, not as part of a larger operation.
 
 ```{r, eval = F, echo = T}
 postID <- knit2wp(
@@ -182,3 +171,19 @@ postID <- knit2wp(
 ```
 
 Then, polish the piece in WordPress.
+
+
+```{r, eval = F, include = F}
+
+postID <- knit2wp(
+        input = fileName, 
+        title = postTitle, 
+        publish = FALSE,
+        action = "newPost",
+        categories = c("data-analytics"),
+        mt_keywords = c("markdown"),
+        mt_excerpt = "Publish to WordPress from RStudio"
+        )
+
+```
+
