@@ -1,0 +1,79 @@
+---
+title: "Using GitHub with RStudio"
+author: "Joseph Cohen"
+date: "1/21/2021"
+output: 
+  html_document:
+    toc: true
+---
+
+```{r, include = F}
+
+rm(list=ls())
+gc()
+directory <- "E:/Dropbox/Teaching/data-analytics-posts"
+setwd(directory)
+
+library(RWordPress)
+library(XMLRPC)
+library(knitr)
+
+opts_knit$set(upload.fun = imgur_upload, base.url = NULL)  
+opts_chunk$set(fig.width = 5, fig.height = 5, cache = TRUE)
+
+source("E:/Dropbox/Web/WPCrds.R")
+
+postTitle = "Using Github with RStudio"
+fileName = "Using-Github.Rmd"
+
+```
+
+[GitHub](https://github.com/) is an online code repository that is maintained by Microsoft.  It is an excellent, free-to-use repository that allows you to save, update, and share scripts and output.  It is useful for many things, including:
+
+* *Version control,* keep track of old versions of your scripts and track how you have updated them.
+* *Code repository,* a useful system for storing and disseminating code.  It is an effective way to distribute programs or allow people to check your work.
+* *Collaborative coding,* upload your work on a collaboratively-coded script or download your colleagues' recent work.  Helps prevent a situation in which a team is working on different versions of a script
+
+I'm sure that there are other great uses.  If you want to share ideas with your colleagues, you can add them below in the comments section.
+
+This tutorial is adapted from a tutorial from [the University of Chicago](https://cfss.uchicago.edu/setup/git-with-rstudio/).  Readers should visit that site for a more detailed walk-through.
+
+## Start a Git Repository
+
+1.  On [GitHub.com](https://www.github.com), create a "New Repository" (look for a green button).  
+
+![Click the green button to start an archive](E:/Dropbox/Teaching/data-analytics-posts/git1.jpg)
+
+2.  Create a new repository.  Make the repository **public**, and initialize it **WITH a README** file.
+
+![Create a public archive with a readme file](E:/Dropbox/Teaching/data-analytics-posts/git2.jpg)
+
+## Create a Project Connected to the Repository
+
+1.  Click *File > New Project > Version Control*
+
+![Click Version Control](E:/Dropbox/Teaching/data-analytics-posts/git3.jpg)
+
+2.  Choose *Git*
+
+![Choose Git](E:/Dropbox/Teaching/data-analytics-posts/git4.jpg)
+
+You will ten be asked for this information.  In the bottom field, name the folder that will contain your new project folder.  In the middle field, give your project a name.  The top field requires the URL for this project's associated Git.
+
+![Empty Info Box](E:/Dropbox/Teaching/data-analytics-posts/git5.jpg)
+
+
+You can get the address for your Github repostory by visitng the repository, clicking the green button, and getting the HTTPS clone address.  Add that address to the top line.
+
+![Get Your Repository Address from Github.com](E:/Dropbox/Teaching/data-analytics-posts/git6.jpg)
+
+Complete the information to create the R Project file.
+
+![Filled Out Box](E:/Dropbox/Teaching/data-analytics-posts/git7.jpg)
+You have now created a project.  It will remember the state of your RStudio session when you exit, and will bring it up again when you open the project again in the Project menu:
+
+![The Project Menu](E:/Dropbox/Teaching/data-analytics-posts/git8.jpg)
+
+## Push Your Scripts or Script Changes to GitHub
+
+
