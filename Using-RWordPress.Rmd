@@ -1,0 +1,187 @@
+---
+title: "Post to WordPress via R Markdown"
+output: 
+  html_document:
+    toc: true
+---
+
+
+```{r, include=FALSE}
+rm(list=ls())
+gc()
+directory <- "E:/Dropbox/Teaching/Data Analytics in R"
+setwd(directory)
+
+```
+
+Blogs are a great communications tool.  This post documents a method for generating WordPress posts through RStudio.  It uses the ***RWordPress*** package by [Duncan Temple Lang](https://github.com/duncantl/RWordPress).  This tutorial is largely drawn with minor adaptations from [Peter Bumgartner's excellent tutorial](https://peter.baumgartner.name/2017/08/12/learning-how-to-use-the-rwordpress-package/)^[Gedankensplitter von Peter Baumgartner: Lizenziert unter einer Creative Commons Namensnennung - Weitergabe unter gleichen Bedingungen 4.0 International.]
+
+## Set Up Your Session
+
+### Installing the RWordPress and XMLRPC Packages
+
+The ***[RWordPress](https://github.com/duncantl/RWordPress)*** package is being distributed through GitHub.  It can be installed using the **[install_github()](https://cran.r-project.org/web/packages/githubinstall/vignettes/githubinstall.html)** operation in the ***[devtools](https://cran.r-project.org/web/packages/devtools/index.html)*** package.  You also need to install Lang's ***XMLRPC*** package as well.
+
+```{r install packages, eval = F, echo = T}
+
+library(devtools)
+install_github("duncantl/RWordPress")
+install_github("duncantl/XMLRPC")
+
+```
+
+### Load Necessary Packages
+
+We need the following packages, in addition to ***RWordPress*** and ***XMLRPC*** (see above step):
+
+* ***knitr***, a suite of operations for generating reports
+
+```{r load packages, echo = T}
+
+library(RWordPress)
+library(XMLRPC)
+library(knitr)
+
+```
+
+### Create / Load a Script with Your Credentials
+
+To post to WordPress, your login and password must be included in the script.  Posting or circulating a Markdown file with your WordPress login credentials creates a huge web security risk.  On the other hand, we teach you to be open about your coding, so that others can review, replicate, and build on it.  How to negoatiate the two?  
+
+Bumgartner's solution is to add the following variables to your **.Rprofile** file using this code
+
+```{r, eval = F, echo = T}
+
+options(WordPressLogin = c(yourUserName = 'yourPassword'),
+        WordPressURL = 'yourWordPressURL')
+
+```
+
+Do not delete the quotation marks in this template.  For the 'yourWordPressURL', be sure to add a "https://" before and and "/xmlrpc.php" after your site address.  So, for the site "joeblog.com", you would enter "https://joeblog.com/xmlrpc.php"
+
+Once you have generated and stored the file, you can add it to any Markdown file that you intend to post.  I called my file "WPCrds.R":
+
+```{r, echo = T}
+source("E:/Dropbox/Web/WPCrds.R")
+```
+
+### Set Images to Post to imgur.com
+
+To save time and resources, post your images to the open online site [Imgur.com](https://imgur.com).  To do so, add these ***knitr*** options to your script:
+
+```{r, echo = T}
+
+# To upload images to imgur.com
+opts_knit$set(upload.fun = imgur_upload, base.url = NULL)  
+
+# Set default image dimensions
+# Change them to change the dimensions of figures
+opts_chunk$set(fig.width = 5, fig.height = 5, cache = TRUE)
+
+```
+
+## Generate a Polished html Report
+
+Create a Markdown file that renders your report in [html](https://en.wikipedia.org/wiki/HTML).  Render it locally to something sufficiently polished, and then move on to the next step.
+
+In order to add a picture to this example, let me add a photo:
+
+![Old Fourth of July Poster from Library of Congress](E:/Dropbox/Web/Graphics/service-pnp-cph-3g00000-3g08000-3g08100-3g08134_150px.jpg)
+
+## Post Your Information
+
+### Set Your Post Title 
+
+In another chunk, set your post title as the variable *postTitle*, and define *fileName* as the name of the Markdown file that you are using to generate the post:
+
+```{r, echo = T}
+
+postTitle = "Post to WordPress via R Markdown"
+fileName = "Using-RWordPress.Rmd"
+
+```
+
+### Post the Report
+
+To post, you create an object called *postID*, which includes:
+
+* the Markdown file name (option: input)
+* the post title (option: title)
+* whether the post should be published upon rendering (option: publish, set true to directly publsh -- ***not advisable***)
+* for a new post, the **action** variable should be set to "newPost" (option: action)
+* to set the post's category.  Use the slugs designated on your site. (option: categories)
+* to set the post's tags.  Use the slugs designated on your site. (option: tags)
+
+```{r, eval - F, echo = T}
+
+postID <- knit2wp(
+        input = fileName, 
+        title = postTitle, 
+        publish = FALSE,
+        action = "newPost",
+        categories = c("data-analytics"),
+        tags = c("markdown"),
+        mt_excerpt = "Publish a Markdown report direct to your WordPress blog",
+)
+
+```
+
+```{r, eval - T, include = F}
+
+postID <- knit2wp(
+        input = fileName, 
+        title = postTitle, 
+        publish = FALSE,
+        action = "newPost",
+        categories = c("data-analytics"),
+        tags = c("markdown"),
+        mt_excerpt = "Publish a Markdown report direct to your WordPress blog",
+        
+        #The following are custom tags for my own site
+        github_repository = "",
+        osf_citation = "",
+        osf_repository = "",
+        photo_credit =
+        )
+
+```
+
+## Clean It Up on WordPress
+
+From here, you will have a draft post on your WordPress site.  
+
+## Summary
+
+To summarize, start with this set up to your script.  Remember that the **source()** line points to a file with your credientials:
+
+```{r, eval = F, echo = T}
+
+library(RWordPress)
+library(XMLRPC)
+library(knitr)
+
+opts_knit$set(upload.fun = imgur_upload, base.url = NULL)  
+opts_chunk$set(fig.width = 5, fig.height = 5, cache = TRUE)
+
+source("E:/Dropbox/Web/WPCrds.R")
+
+postTitle = "Your Title"
+fileName = "Your-Markdown-File.Rmd"
+```
+
+Then write the script until it is polished, and then you can post by entering this code.
+
+```{r, eval = F, echo = T}
+postID <- knit2wp(
+        input = fileName, 
+        title = postTitle, 
+        publish = FALSE,
+        action = "newPost",
+        categoories = c("Insert Slugs here"),
+        tags = c("insert slugs here"),
+        mt_excerpt = "Insert excerpt here"
+)
+
+```
+
+Then, polish the piece in WordPress.
