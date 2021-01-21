@@ -89,3 +89,7 @@ Fill out the popup window. Write a comment and click "Commit"
 
 
 ## Pulling a Repository
+
+Want to see if someone changed your repository while you were away?  Press the "Pull" button in the Git window:
+
+![Click Pull to Download Changes](E:/Dropbox/Teaching/data-analytics-posts/git11.png)
