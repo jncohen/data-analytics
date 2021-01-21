@@ -138,10 +138,7 @@ postID <- knit2wp(
         mt_excerpt = "Publish a Markdown report direct to your WordPress blog",
         
         #The following are custom tags for my own site
-        github_repository = "",
-        osf_citation = "",
-        osf_repository = "",
-        photo_credit =
+        github_repository = "https://github.com/jncohen/data-analytics/blob/main/Using-RWordPress.Rmd"
         )
 
 ```

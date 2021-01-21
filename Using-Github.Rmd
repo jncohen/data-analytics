@@ -1,6 +1,6 @@
 ---
 title: "Using GitHub with RStudio"
-author: "Joseph N. Cohen"
+author: "Joseph Cohen"
 date: "1/21/2021"
 output: 
   html_document:
@@ -40,21 +40,21 @@ This tutorial is adapted from a tutorial from [the University of Chicago](https:
 
 ## Start a Git Repository
 
-1.  On [GitHub.com](https://www.github.com), create a "New Repository" (look for a green button).  
+On [GitHub.com](https://www.github.com), create a "New Repository" (look for a green button).  
 
 ![Click the green button to start an archive](E:/Dropbox/Teaching/data-analytics-posts/git1.jpg)
 
-2.  Create a new repository.  Make the repository **public**, and initialize it **WITH a README** file.
+Create a new repository.  Make the repository **public**, and initialize it **WITH a README** file.
 
 ![Create a public archive with a readme file](E:/Dropbox/Teaching/data-analytics-posts/git2.jpg)
 
 ## Create a Project Connected to the Repository
 
-1.  Click *File > New Project > Version Control*
+Click *File > New Project > Version Control*
 
 ![Click Version Control](E:/Dropbox/Teaching/data-analytics-posts/git3.jpg)
 
-2.  Choose *Git*
+Choose *Git*
 
 ![Choose Git](E:/Dropbox/Teaching/data-analytics-posts/git4.jpg)
 
@@ -76,4 +76,16 @@ You have now created a project.  It will remember the state of your RStudio sess
 
 ## Push Your Scripts or Script Changes to GitHub
 
+Select the file you wish to upload, and click **"commit"**
 
+![Stage Your SCript in the Git Window](E:/Dropbox/Teaching/data-analytics-posts/git9.jpg)
+
+Fill out the popup window. Write a comment and click "Commit"
+
+![Commit Your Script or Its Edits](E:/Dropbox/Teaching/data-analytics-posts/git10.png)
+
+*Et voila!*, your script is posted to GitHub!
+
+
+
+## Pulling a Repository
