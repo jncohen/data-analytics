@@ -93,3 +93,21 @@ Fill out the popup window. Write a comment and click "Commit"
 Want to see if someone changed your repository while you were away?  Press the "Pull" button in the Git window:
 
 ![Click Pull to Download Changes](E:/Dropbox/Teaching/data-analytics-posts/git11.png)
+
+
+```{r, eval - T, include = F}
+
+postID <- knit2wp(
+        input = fileName, 
+        title = postTitle, 
+        publish = FALSE,
+        action = "newPost",
+        categories = c("data-analytics"),
+        tags = c("markdown"),
+        mt_excerpt = "Publish a Markdown report direct to your WordPress blog",
+        
+        #The following are custom tags for my own site
+        github_repository = "https://github.com/jncohen/data-analytics/blob/main/Using-Github.Rmd"
+        )
+
+```
